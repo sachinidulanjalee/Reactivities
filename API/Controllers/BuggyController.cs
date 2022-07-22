@@ -17,13 +17,13 @@
                 return BadRequest("This is a bad request");
             }
 
-            [HttpGet("server-error")]
-            public ActionResult GetServerError()
-            {
-                throw new Exception("This is a server error");
-            }
+        [HttpGet("server-error")]
+        public ActionResult GetServerError()
+        {
+            throw new Exception("This is a server error");
+        }
 
-            [HttpGet("unauthorised")]
+        [HttpGet("unauthorised")]
             public ActionResult GetUnauthorised()
             {
                 return Unauthorized();
