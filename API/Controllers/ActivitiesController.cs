@@ -1,5 +1,6 @@
 ﻿using Application.Activities;
 using Domain;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -19,7 +20,6 @@ namespace API.Controllers
 
             
         }
-
         [HttpGet("{id}")] //activities/id
         public async Task<IActionResult> GetActivities(Guid id)
         {
