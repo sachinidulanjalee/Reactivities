@@ -11,7 +11,13 @@ const sleep = (delay: number) => {
         setTimeout(resolve, delay)
     }))
 }
-axios.defaults.baseURL = 'https://localhost:44397/api'
+axios.defaults.baseURL = 'https://localhost:44397/api';
+
+axios.interceptors.request.use(config =>{
+    const token =  store.commonStore.token;
+    if(token) config.headers.Authorization = `Bearer ${token}`
+    return config;
+})
 const responsBody = <T>(response: AxiosResponse<T>) => response.data;
 
 axios.interceptors.response.use(async response => {

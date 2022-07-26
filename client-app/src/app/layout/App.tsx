@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Container } from 'semantic-ui-react';
+import { Container, Modal } from 'semantic-ui-react';
 import NavBar from '../layout/NavBar';
 import ActivityDashboard from '../../features/activities/dashboard/ActivityDashboard';
 import { observer } from 'mobx-react-lite';
@@ -12,15 +12,31 @@ import { ToastContainer } from 'react-toastify';
 import NotFound from '../../features/errors/NotFound';
 import ServerError from '../../features/errors/ServerError';
 import LoginForm from '../../features/users/LoginForm';
+import { useStore } from '../stores/store';
+import LoadingComponent from './LoadingComponent';
+import ModalContainer from '../common/modals/ModalContainer';
 
 
 function App() {
 
   const location = useLocation();
+  const {commonStore,userStore} = useStore();
+
+  useEffect(()=>{
+    if (commonStore.token){
+      userStore.getUser().finally(()=>commonStore.setAppLoaded());
+    }else{
+      commonStore.setAppLoaded();
+    }
+  }
+  ,[commonStore,useStore])
+
+  if(!commonStore.appLoaded) return<LoadingComponent content='Loading app...'/>
 
   return (
     <>
       <ToastContainer position='bottom-right' hideProgressBar />
+      <ModalContainer />
       <Route exact path='/' component={HomePage} />
       <Route path='/(.+)'
         render={() => (
