@@ -4,6 +4,7 @@ import { Activity, ActivityFormValues } from "../models/activity";
 import { store } from "../stores/store";
 import { history } from '../..';
 import { User, UserFormValues } from "../models/user";
+import { Photo, Profile, UserActivity } from "../models/profile";
 
 
 const sleep = (delay: number) => {
@@ -82,10 +83,24 @@ const Account = {
     register: (user: UserFormValues) => requests.post<User>('/account/register',user),
 }
 
+const Profiles = {
+    get: (username: string) => requests.get<Profile>(`/profiles/${username}`),
+    uploadPhoto: (file: Blob) => {
+        let formData = new FormData();
+        formData.append('File', file);
+        return axios.post<Photo>('photos', formData, {
+            headers: { 'Content-type': 'multipart/form-data' }
+        })
+    },
+    setMainPhoto: (id: string) => requests.post(`/photos/${id}/setMain`, {}),
+    deletePhoto: (id: string) => requests.delete(`/photos/${id}`),
 
+ 
+}
 const agent = {
     Activities,
-    Account
+    Account,
+    Profiles
 }
 
 export default agent;
