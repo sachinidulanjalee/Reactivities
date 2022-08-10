@@ -184,5 +184,9 @@ const attendee = new Profile(user!);
         }
     }
 
+    clearSelectedActivity = () => {
+        this.selectedActivity = undefined;
+    }
+
 }
 
