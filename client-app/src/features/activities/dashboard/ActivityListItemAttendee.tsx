@@ -4,7 +4,6 @@ import { Link } from 'react-router-dom';
 import { Image, List, Popup } from 'semantic-ui-react';
 import { Profile } from '../../../app/models/profile';
 import ProfileCard from '../../profiles/ProfileCard';
-//import ProfileCard from '../../profiles/ProfileCard';
 
 interface Props {
     attendees: Profile[];
